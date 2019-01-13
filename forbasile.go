@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
+	"os/exec"
+	"path/filepath"
 	"plugin"
 )
 
@@ -11,30 +13,46 @@ type Sum interface {
 }
 
 func main() {
-        arg := os.Args[1]
+	arg := os.Args[1]
 	// module to load
 	mod := fmt.Sprintf("%s%s%s%s%s", "./", arg, "/", arg, ".so")
-        fmt.Printf(mod)
+	fmt.Printf(mod)
+	os.Mkdir("."+string(filepath.Separator)+"sumsquare", 0777)
+	f, err := os.Create("sumsquare/sumsquare.go")
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+	program := "package main\nimport \"fmt\"\ntype sumsquare string\nfunc (s sumsquare) Sumsquare(a int, b int) { fmt.Println(\"HI\")}\nvar Sumsquare sumsquare"
+	l, err := f.WriteString(program)
+	if err != nil {
+		fmt.Println(err)
+		f.Close()
+		return
+	}
+	fmt.Println(l, "bytes written successfully")
+	err = f.Close()
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
-    f, err := os.Create("sumsquare.go")
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-    program := "import \"fmt\"\nfunc Demo() { fmt.Println(\"HI\")}"
-    l, err := f.WriteString(program)
-    if err != nil {
-        fmt.Println(err)
-        f.Close()
-        return
-    }
-    fmt.Println(l, "bytes written successfully")
-    err = f.Close()
-    if err != nil {
-        fmt.Println(err)
-        return
-    }
-	
+	ex, err := os.Executable()
+	if err != nil {
+		panic(err)
+	}
+	exPath := filepath.Dir(ex)
+	fmt.Println(exPath)
+
+	cmd := exec.Command("go", "build", "-buildmode=plugin", "-o", "/home/developer/proj/gitlab.com/forbasile/sumsquare/sumsquare.so", "/home/developer/proj/gitlab.com/forbasile/sumsquare/sumsquare.go")
+	//cmd.Dir = "/home/developer/proj/gitlab.com/forbasile"
+	out, err2 := cmd.Output()
+	fmt.Println(out)
+
+	if err2 != nil {
+		fmt.Println(err2)
+		return
+	}
 
 	// load module
 	// 1. open the so file to load the symbols
