@@ -1,6 +1,6 @@
 # Go Plugin
 
-The code in this repository uses the `plugin` package in Go 1.10 (see https://tip.golang.org/pkg/plugin/).  A Go plugin is package compiled with the `-buildmode=plugin` which creates a shared object (`.so`) library file instead of the standar archive (`.a`) library file.  As you will see here, using the standar library's `plugin` package, Go can dynamically load the shared object file at runtime to access exported elements such as functions an variables.
+The code in this repository uses the `plugin` package in Go 1.10 (see https://tip.golang.org/pkg/plugin/).  A Go plugin is package compiled with the `-buildmode=plugin` which creates a shared object (`.so`) library file instead of the standar archive (`.a`) library file.  As you will see here, using the standard library's `plugin` package, Go can dynamically load the shared object file at runtime to access exported elements such as functions an variables.
 
 You can read the related article [on Medium](https://medium.com/learning-the-go-programming-language/writing-modular-go-programs-with-plugins-ec46381ee1a9).
 
@@ -18,7 +18,7 @@ using the passed parameter to select the plugin to load for the appropriate lang
 .. calling it with xx=3 yy=5
 start of SUM: x=3, y=5
 result of SUM (3, 5) is 8
-
+```
 
 As you can see, the capability of the driver program is dynamically expanded by the plugins allowing it to display a greeting message in different language without the need to recompile the program.
 
