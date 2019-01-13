@@ -1,12 +1,28 @@
 # Go Plugin
 
-The code in this repository uses the `plugin` package in Go 1.10 (see https://tip.golang.org/pkg/plugin/).  A Go plugin is package compiled with the `-buildmode=plugin` which creates a shared object (`.so`) library file instead of the standar archive (`.a`) library file.  As you will see here, using the standar library's `plugin` package, Go can dynamically load the shared object file at runtime to access exported elements such as functions an variables.
+The code in this repository uses the `plugin` package in Go 1.10 (see https://tip.golang.org/pkg/plugin/).  A Go plugin is package compiled with the `-buildmode=plugin` which creates a shared object (`.so`) library file instead of the standar archive (`.a`) library file.  As you will see here, using the standard library's `plugin` package, Go can dynamically load the shared object file at runtime to access exported elements such as functions an variables.
 
 You can read the related article [on Medium](https://medium.com/learning-the-go-programming-language/writing-modular-go-programs-with-plugins-ec46381ee1a9).
 
 ## Requirements
 The plugin system requires Go version 1.10.  At this time, it is only supports plugin on Linux.  Attempt 
 to compile plugins on OSX, for instance, will result in  `-buildmode=plugin not supported on darwin/amd64` error.
+
+the body (that is, some Go code) of that sum function should be a
+program argument. Maybe
+
+
+    go run forbasile.go SUM 'return x+y' 3 5
+
+
+and of course
+
+
+    go run forbasile.go SUMSQUARE 'return x*x + y*y' 3 4
+
+
+is expected to print 25
+and the body could even be some more complex Go statement.
 
 ## A Pluggable System
 The demo in this repository implements a simple sum.  The plugin package (directory `./sum`) implements code that prints a sum.  File `./sum.go` uses the new Go `plugin` package to load the pluggable modules and displays the proper message using passed command-line parameters.
@@ -18,7 +34,7 @@ using the passed parameter to select the plugin to load for the appropriate lang
 .. calling it with xx=3 yy=5
 start of SUM: x=3, y=5
 result of SUM (3, 5) is 8
-
+```
 
 As you can see, the capability of the driver program is dynamically expanded by the plugins allowing it to display a greeting message in different language without the need to recompile the program.
 
