@@ -11,9 +11,10 @@ type Sum interface {
 }
 
 func main() {
+        arg := os.Args[1]
 	// module to load
-	var mod string
-	mod = "./sum/sum.so"
+	mod := fmt.Sprintf("%s%s%s%s%s", "./", arg, "/", arg, ".so")
+        fmt.Printf(mod)
 
 	// load module
 	// 1. open the so file to load the symbols
