@@ -2,11 +2,12 @@ package main
 
 import "fmt"
 
-type greeting string
+type sum string
 
-func (g greeting) Greet() {
-	fmt.Println("Hejsan Världen!")
+func add(a int, b int) {
+        sum := a + b
+	fmt.Println("Sum: ", sum)
 }
 
 // exported
-var Greeter greeting
+var Sum sum
