@@ -16,6 +16,26 @@ func main() {
 	mod := fmt.Sprintf("%s%s%s%s%s", "./", arg, "/", arg, ".so")
         fmt.Printf(mod)
 
+    f, err := os.Create("sumsquare.go")
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    program := "import \"fmt\"\nfunc Demo() { fmt.Println(\"HI\")}"
+    l, err := f.WriteString(program)
+    if err != nil {
+        fmt.Println(err)
+        f.Close()
+        return
+    }
+    fmt.Println(l, "bytes written successfully")
+    err = f.Close()
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+	
+
 	// load module
 	// 1. open the so file to load the symbols
 	plug, err := plugin.Open(mod)
@@ -42,6 +62,6 @@ func main() {
 	}
 
 	// 4. use the module
-	sum.Sum(3,5)
+	sum.Sum(5, 3)
 
 }
