@@ -8,6 +8,22 @@ You can read the related article [on Medium](https://medium.com/learning-the-go-
 The plugin system requires Go version 1.10.  At this time, it is only supports plugin on Linux.  Attempt 
 to compile plugins on OSX, for instance, will result in  `-buildmode=plugin not supported on darwin/amd64` error.
 
+the body (that is, some Go code) of that sum function should be a
+program argument. Maybe
+
+
+    go run forbasile.go SUM 'return x+y' 3 5
+
+
+and of course
+
+
+    go run forbasile.go SUMSQUARE 'return x*x + y*y' 3 4
+
+
+is expected to print 25
+and the body could even be some more complex Go statement.
+
 ## A Pluggable System
 The demo in this repository implements a simple sum.  The plugin package (directory `./sum`) implements code that prints a sum.  File `./sum.go` uses the new Go `plugin` package to load the pluggable modules and displays the proper message using passed command-line parameters.
 
