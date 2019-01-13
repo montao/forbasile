@@ -6,10 +6,11 @@ import (
 	"os/exec"
 	"path/filepath"
 	"plugin"
+	"strings"
 )
 
-type Sum interface {
-	Sum(int, int)
+type HI interface {
+	HI(int, int)
 }
 
 func main() {
@@ -17,14 +18,16 @@ func main() {
 	// module to load
 	mod := fmt.Sprintf("%s%s%s%s%s", "./", arg, "/", arg, ".so")
 	fmt.Printf(mod)
-	os.Mkdir("."+string(filepath.Separator)+"sumsquare", 0777)
-	f, err := os.Create("sumsquare/sumsquare.go")
+	os.Mkdir("."+string(filepath.Separator)+os.Args[1], 0777)
+	filename := fmt.Sprintf("%s/%s.go", os.Args[1], os.Args[1])
+	f, err := os.Create(filename)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
-	program := "package main\nimport \"fmt\"\ntype sumsquare string\nfunc (s sumsquare) Sumsquare(a int, b int) { fmt.Println(\"HI\")}\nvar Sumsquare sumsquare"
-	l, err := f.WriteString(program)
+	strprg := fmt.Sprintf("package main\nimport \"fmt\"\ntype %s string\nfunc(s %s) %s(a int, b int){ fmt.Println(\"%s\")}\nvar %s %s", strings.ToLower(os.Args[1]), strings.ToLower(os.Args[1]), strings.Title(os.Args[1]), os.Args[1], strings.Title(os.Args[1]), strings.ToLower(os.Args[1]))
+	//program := "package main\nimport \"fmt\"\ntype sumsquare string\nfunc (s sumsquare) Sumsquare(a int, b int) { fmt.Println(\"HI\")}\nvar Sumsquare sumsquare"
+	l, err := f.WriteString(strprg)
 	if err != nil {
 		fmt.Println(err)
 		f.Close()
@@ -44,7 +47,7 @@ func main() {
 	exPath := filepath.Dir(ex)
 	fmt.Println(exPath)
 
-	cmd := exec.Command("go", "build", "-buildmode=plugin", "-o", "/home/developer/proj/gitlab.com/forbasile/sumsquare/sumsquare.so", "/home/developer/proj/gitlab.com/forbasile/sumsquare/sumsquare.go")
+	cmd := exec.Command("go", "build", "-buildmode=plugin", "-o", "/home/developer/proj/gitlab.com/forbasile/HI/HI.so", "/home/developer/proj/gitlab.com/forbasile/HI/HI.go")
 	//cmd.Dir = "/home/developer/proj/gitlab.com/forbasile"
 	out, err2 := cmd.Output()
 	fmt.Println(out)
@@ -64,7 +67,7 @@ func main() {
 
 	// 2. look up a symbol (an exported function or variable)
 	// in this case, variable Sum
-	symSum, err := plug.Lookup("Sum")
+	symHI, err := plug.Lookup("HI")
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -72,14 +75,14 @@ func main() {
 
 	// 3. Assert that loaded symbol is of a desired type
 	// in this case interface type Sum (defined above)
-	var sum Sum
-	sum, ok := symSum.(Sum)
+	var hi HI
+	hi, ok := symHI.(HI)
 	if !ok {
 		fmt.Println("unexpected type from module symbol")
 		os.Exit(1)
 	}
 
 	// 4. use the module
-	sum.Sum(5, 3)
+	hi.HI(5, 3)
 
 }
