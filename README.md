@@ -1,6 +1,6 @@
-# Go Plugin Example
+# Go Plugin
 
-The code in this repository shows how to use the new `plugin` package in Go 1.10 (see https://tip.golang.org/pkg/plugin/).  A Go plugin is package compiled with the `-buildmode=plugin` which creates a shared object (`.so`) library file instead of the standar archive (`.a`) library file.  As you will see here, using the standar library's `plugin` package, Go can dynamically load the shared object file at runtime to access exported elements such as functions an variables.
+The code in this repository uses the `plugin` package in Go 1.10 (see https://tip.golang.org/pkg/plugin/).  A Go plugin is package compiled with the `-buildmode=plugin` which creates a shared object (`.so`) library file instead of the standar archive (`.a`) library file.  As you will see here, using the standar library's `plugin` package, Go can dynamically load the shared object file at runtime to access exported elements such as functions an variables.
 
 You can read the related article [on Medium](https://medium.com/learning-the-go-programming-language/writing-modular-go-programs-with-plugins-ec46381ee1a9).
 
@@ -8,8 +8,8 @@ You can read the related article [on Medium](https://medium.com/learning-the-go-
 The plugin system requires Go version 1.10.  At this time, it is only supports plugin on Linux.  Attempt 
 to compile plugins on OSX, for instance, will result in  `-buildmode=plugin not supported on darwin/amd64` error.
 
-## A Pluggable Greeting System
-The demo in this repository implements a simple sum system.  The plugin package (directory `./sum`) implements code that prints a sum.  File `./sum.go` uses the new Go `plugin` package to load the pluggable modules and displays the proper message using passed command-line parameters.
+## A Pluggable System
+The demo in this repository implements a simple sum.  The plugin package (directory `./sum`) implements code that prints a sum.  File `./sum.go` uses the new Go `plugin` package to load the pluggable modules and displays the proper message using passed command-line parameters.
 
 For instance, when the program is executed it prints a greeting in English or Chinese 
 using the passed parameter to select the plugin to load for the appropriate language.
