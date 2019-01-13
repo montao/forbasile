@@ -7,11 +7,12 @@ import (
 )
 
 type Sum interface {
-	Sum()
+	Sum(int, int)
 }
 
 func main() {
 	// module to load
+	var mod string
 	mod = "./sum/sum.so"
 
 	// load module
@@ -23,7 +24,7 @@ func main() {
 	}
 
 	// 2. look up a symbol (an exported function or variable)
-	// in this case, variable Greeter
+	// in this case, variable Sum
 	symSum, err := plug.Lookup("Sum")
 	if err != nil {
 		fmt.Println(err)
@@ -31,7 +32,7 @@ func main() {
 	}
 
 	// 3. Assert that loaded symbol is of a desired type
-	// in this case interface type Greeter (defined above)
+	// in this case interface type Sum (defined above)
 	var sum Sum
 	sum, ok := symSum.(Sum)
 	if !ok {
@@ -40,6 +41,6 @@ func main() {
 	}
 
 	// 4. use the module
-	sum.Add(3,5)
+	sum.Sum(3,5)
 
 }
