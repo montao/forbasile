@@ -20,8 +20,8 @@ func main() {
 	// module to load
 	mod := fmt.Sprintf("%s%s%s%s%s", "./", arg, "/", arg, ".so")
 	fmt.Printf(mod)
-	os.Mkdir("."+string(filepath.Separator)+os.Args[1], 0777)
-	filename := fmt.Sprintf("%s/%s.go", os.Args[1], os.Args[1])
+	os.Mkdir("/tmp"+string(filepath.Separator)+os.Args[1], 0777)
+	filename := fmt.Sprintf("/tmp/%s/%s.go", os.Args[1], os.Args[1])
 	f, err := os.Create(filename)
 	if err != nil {
 		fmt.Println(err)
@@ -49,7 +49,7 @@ func main() {
 	exPath := filepath.Dir(ex)
 	fmt.Println(exPath)
 
-	cmd := exec.Command("go", "build", "-buildmode=plugin", "-o", "/home/developer/proj/gitlab.com/forbasile/SUM/SUM.so", "/home/developer/proj/gitlab.com/forbasile/SUM/SUM.go")
+	cmd := exec.Command("go", "build", "-buildmode=plugin", "-o", "/tmp/SUM/SUM.so", "/tmp/SUM/SUM.go")
 
 	out, err2 := cmd.Output()
 	fmt.Println(out)
