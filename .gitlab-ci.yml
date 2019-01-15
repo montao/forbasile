@@ -3,8 +3,8 @@ before_script:
 
 job:
   before_script:
-    - date
+    - cat /etc/issue
   script:
-    - echo foo
+    - go --version
   after_script:
     - echo bar
