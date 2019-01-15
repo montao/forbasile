@@ -20,6 +20,9 @@ func main() {
 	a1l := strings.ToLower(a1)
 	a1t := strings.Title(a1)
 	a2 := os.Args[2]
+	x1, err := strconv.Atoi(os.Args[3])
+	y1, err := strconv.Atoi(os.Args[4])
+
 	// module to load
 	//mod := fmt.Sprintf("%s%s%s%s%s", "./", arg, "/", arg, ".so")
 	//fmt.Printf(mod)
@@ -32,7 +35,7 @@ func main() {
 	}
 	strprg := fmt.Sprintf("package main\ntype %s string\nfunc(s %s) FUNCTION (x int, y int) int { %s}\nvar %s %s", a1l, a1l, a2, a1t, a1l)
 	fmt.Printf("func(s %s) FUNCTION (x int, y int) int { \n", a1l)
-	
+	fmt.Printf("start of %s: x=%d, y=%d\n",a1l, x1 ,y1 )
 	l, err := f.WriteString(strprg)
 	if err != nil {
 		fmt.Println(err)
@@ -89,8 +92,7 @@ func main() {
 	}
 
 	// 4. use the module
-	x1, err := strconv.Atoi(os.Args[3])
-	y1, err := strconv.Atoi(os.Args[4])
+
 
 	fmt.Println(myvar.FUNCTION(x1, y1))
 
