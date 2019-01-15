@@ -16,7 +16,10 @@ type Xinterface interface {
 }
 
 func main() {
-	//arg := os.Args[1]
+     	a1 := os.Args[1]
+	a1l := strings.ToLower(a1)
+	a1t := strings.Title(a1)
+	a2 := os.Args[2]
 	// module to load
 	//mod := fmt.Sprintf("%s%s%s%s%s", "./", arg, "/", arg, ".so")
 	//fmt.Printf(mod)
@@ -27,8 +30,8 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	strprg := fmt.Sprintf("package main\ntype %s string\nfunc(s %s) FUNCTION (x int, y int) int { %s}\nvar %s %s", strings.ToLower(os.Args[1]), strings.ToLower(os.Args[1]), os.Args[2], strings.Title(os.Args[1]), strings.ToLower(os.Args[1]))
-	//fmt.Printf(strprg)
+	strprg := fmt.Sprintf("package main\ntype %s string\nfunc(s %s) FUNCTION (x int, y int) int { %s}\nvar %s %s", a1l, a1l, a2, a1t, a1l)
+	fmt.Printf("func(s %s) FUNCTION (x int, y int) int { \n", a1l)
 	
 	l, err := f.WriteString(strprg)
 	if err != nil {
