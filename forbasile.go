@@ -61,7 +61,7 @@ func main() {
 
 	// load module
 	// 1. open the so file to load the symbols
-	plug, err := plugin.Open(mod)
+	plug, err := plugin.Open(fmt.Sprintf("%s%s", "/tmp/", mod))
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
