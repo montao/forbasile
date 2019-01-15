@@ -16,7 +16,7 @@ type Xinterface interface {
 }
 
 func main() {
-	arg := os.Args[1]
+	//arg := os.Args[1]
 	// module to load
 	//mod := fmt.Sprintf("%s%s%s%s%s", "./", arg, "/", arg, ".so")
 	//fmt.Printf(mod)
