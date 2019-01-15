@@ -25,7 +25,7 @@ is expected to print 25
 and the body could even be some more complex Go statement.
 
 ## A Pluggable System
-The demo in this repository implements a simple sum.  The plugin package (directory `./sum`) implements code that prints a sum.  File `./sum.go` uses the new Go `plugin` package to load the pluggable modules and displays the proper message using passed command-line parameters.
+The demo in this repository implements a simple plugin generator.  The plugin package (directory `/tmp/<NAME>`) implements code that prints a sum.  File `./sum.go` uses the new Go `plugin` package to load the pluggable modules and displays the proper message using passed command-line parameters.
 
 For instance, when the program is executed it prints a greeting in English or Chinese 
 using the passed parameter to select the plugin to load for the appropriate language.
