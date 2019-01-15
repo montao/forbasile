@@ -1,10 +1,10 @@
 before_script:
-  - global before script
+  - cowsay hello
 
 job:
   before_script:
-    - execute this instead of global before script
+    - date
   script:
-    - my command
+    - echo foo
   after_script:
-    - execute this after my script
+    - echo bar
