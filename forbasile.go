@@ -18,7 +18,7 @@ type Xinterface interface {
 func main() {
 	arg := os.Args[1]
 	// module to load
-	mod := fmt.Sprintf("%s%s%s%s%s", "./", arg, "/", arg, ".so")
+	//mod := fmt.Sprintf("%s%s%s%s%s", "./", arg, "/", arg, ".so")
 	//fmt.Printf(mod)
 	os.Mkdir("/tmp"+string(filepath.Separator)+os.Args[1], 0777)
 	filename := fmt.Sprintf("/tmp/%s/%s.go", os.Args[1], os.Args[1])
