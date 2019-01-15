@@ -1,3 +1,4 @@
+image: golang:1.10
 before_script:
   - cat /etc/issue
 
