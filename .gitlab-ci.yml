@@ -1,5 +1,5 @@
 before_script:
-  - cowsay hello
+  - cat /etc/issue
 
 job:
   before_script:
