@@ -19,7 +19,7 @@ func main() {
 	arg := os.Args[1]
 	// module to load
 	mod := fmt.Sprintf("%s%s%s%s%s", "./", arg, "/", arg, ".so")
-	fmt.Printf(mod)
+	//fmt.Printf(mod)
 	os.Mkdir("/tmp"+string(filepath.Separator)+os.Args[1], 0777)
 	filename := fmt.Sprintf("/tmp/%s/%s.go", os.Args[1], os.Args[1])
 	f, err := os.Create(filename)
@@ -28,7 +28,8 @@ func main() {
 		return
 	}
 	strprg := fmt.Sprintf("package main\ntype %s string\nfunc(s %s) FUNCTION (x int, y int) int { %s}\nvar %s %s", strings.ToLower(os.Args[1]), strings.ToLower(os.Args[1]), os.Args[2], strings.Title(os.Args[1]), strings.ToLower(os.Args[1]))
-
+	fmt.Printf(strprg)
+	
 	l, err := f.WriteString(strprg)
 	if err != nil {
 		fmt.Println(err)
