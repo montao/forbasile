@@ -11,8 +11,8 @@ import (
 	"strconv"
 )
 
-type SUM interface {
-	SUMIT(x int, y int) int
+type Xinterface interface {
+	FUNCTION(x int, y int) int
 }
 
 func main() {
@@ -27,7 +27,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	strprg := fmt.Sprintf("package main\ntype %s string\nfunc(s %s) SUMIT (x int, y int) int { %s}\nvar %s %s", strings.ToLower(os.Args[1]), strings.ToLower(os.Args[1]), os.Args[2], strings.Title(os.Args[1]), strings.ToLower(os.Args[1]))
+	strprg := fmt.Sprintf("package main\ntype %s string\nfunc(s %s) FUNCTION (x int, y int) int { %s}\nvar %s %s", strings.ToLower(os.Args[1]), strings.ToLower(os.Args[1]), os.Args[2], strings.Title(os.Args[1]), strings.ToLower(os.Args[1]))
 
 	l, err := f.WriteString(strprg)
 	if err != nil {
@@ -77,10 +77,10 @@ func main() {
 
 	// 3. Assert that loaded symbol is of a desired type
 	// in this case interface type X (defined above)
-	var sum SUM
-	sum, ok := symX.(SUM)
+	var myvar Xinterface
+	myvar, ok := symX.(Xinterface)
 	if !ok {
-		fmt.Println(fmt.Sprintf("unexpected type from module symbol %s", reflect.TypeOf(symX.(SUM))))
+		fmt.Println(fmt.Sprintf("unexpected type from module symbol %s", reflect.TypeOf(symX.(Xinterface))))
 		os.Exit(1)
 	}
 
@@ -88,6 +88,6 @@ func main() {
 	x1, err := strconv.Atoi(os.Args[3])
 	y1, err := strconv.Atoi(os.Args[4])
 
-	fmt.Println(sum.SUMIT(x1, y1))
+	fmt.Println(myvar.FUNCTION(x1, y1))
 
 }
