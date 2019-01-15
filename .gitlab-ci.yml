@@ -6,6 +6,6 @@ job:
   before_script:
     - cat /etc/issue
   script:
-    - go --version
+    - go 
   after_script:
     - echo bar
