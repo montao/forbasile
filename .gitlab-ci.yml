@@ -6,6 +6,4 @@ job:
   before_script:
     - cat /etc/issue
   script:
-    - go 
-  after_script:
-    - echo bar
+    - go run forbasile.go SUM 'return x+y' 3 5 
