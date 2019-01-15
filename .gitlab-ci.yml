@@ -1,9 +1,8 @@
 image: golang:1.10
-before_script:
-  - cat /etc/issue
 
 job:
   before_script:
     - cat /etc/issue
   script:
     - go run forbasile.go SUM 'return x+y' 3 5 
+    - go run forbasile.go SUMSQUARE 'return x*x + y*y' 3 4
