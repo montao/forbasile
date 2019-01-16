@@ -22,12 +22,7 @@ func main() {
 	fubody := os.Args[2]
 	x1, err := strconv.Atoi(os.Args[3])
 	y1, err := strconv.Atoi(os.Args[4])
-
-	// module to load
-	//mod := fmt.Sprintf("%s%s%s%s%s", "./", arg, "/", arg, ".so")
-	//fmt.Printf(mod)
-	os.Mkdir("/tmp"+string(filepath.Separator)+funame, 0777)
-	filename := fmt.Sprintf("/tmp/%s/%s.go", funame, funame)
+	filename := fmt.Sprintf("/tmp/%s.go", funame)
 	f, err := os.Create(filename)
 	if err != nil {
 		fmt.Println(err)
@@ -63,7 +58,7 @@ var %s %s`, funamel, funamel, fubody, funamet, funamel)
 	exPath := filepath.Dir(ex)
 	fmt.Println(exPath)
 	fmt.Println("compiling plugin")
-	cmd := exec.Command("go", "build", "-buildmode=plugin", "-o", fmt.Sprintf("%s%s%s%s%s", "/tmp/", funame, "/", funame, ".so"), fmt.Sprintf("%s%s%s%s%s", "/tmp/", funame, "/", funame, ".go"))
+	cmd := exec.Command("go", "build", "-buildmode=plugin", "-o", fmt.Sprintf("%s%s%s", "/tmp/", funame, ".so"), fmt.Sprintf("%s%s%s", "/tmp/", funame, ".go"))
 
 	out, err2 := cmd.Output()
 	fmt.Println(out)
@@ -75,7 +70,7 @@ var %s %s`, funamel, funamel, fubody, funamet, funamel)
 	fmt.Println("loading module")
 	// load module
 	// 1. open the so file to load the symbols
-	plug, err := plugin.Open(fmt.Sprintf("%s%s%s%s%s", "/tmp/", funame, "/", funame, ".so"))
+	plug, err := plugin.Open(fmt.Sprintf("%s%s%s", "/tmp/", funame, ".so"))
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -101,5 +96,7 @@ var %s %s`, funamel, funamel, fubody, funamet, funamel)
 	// 4. use the module
 
 	fmt.Println(myvar.FUNCTION(x1, y1))
+	fmt.Println(fmt.Sprintf("Generated code: %s", fmt.Sprintf("/tmp/%s%s", funamet , ".go") ))
+	fmt.Println(fmt.Sprintf("Generated object file: %s", fmt.Sprintf("/tmp/%s%s", funamet , ".so") ))
 
 }
