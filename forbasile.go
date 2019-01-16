@@ -66,7 +66,7 @@ func %s(x int, y int) int { fmt.Println("")
 	fmt.Println("loading module")
 	// load module
 	// 1. open the so file to load the symbols
-	plug, err := plugin.Open(fmt.Sprintf("%s%s%s", "/tmp/", funame, ".so"))
+	plug, err := plugin.Open(fmt.Sprintf("%s%s%s", "/tmp/plugin_", funame, ".so"))
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
