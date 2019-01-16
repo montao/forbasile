@@ -32,7 +32,7 @@ import (
 func %s(x int, y int) int { fmt.Println("")
 %s} 
 `, funamet, fubody)
-	fmt.Printf("func(s %s) FUNCTION (x int, y int) int { \n", funamel)
+	fmt.Printf("func %s(x int, y int) int { \n", funamet)
 	fmt.Printf("start of %s: x=%d, y=%d\n", funamel, x1, y1)
 	l, err := f.WriteString(strprg)
 	if err != nil {
