@@ -6,3 +6,5 @@ job:
   script:
     - go run forbasile.go SUM 'return x+y' 3 5 
     - go run forbasile.go SUMSQUARE 'return x*x + y*y' 3 4
+    - go run forbasile.go SUM 'fmt.Printf("here x=%d\n", x); return x+y' 3 5
+
