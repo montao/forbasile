@@ -6,9 +6,9 @@ import (
 	"os/exec"
 	"path/filepath"
 	"plugin"
-	"strings"
 	"reflect"
 	"strconv"
+	"strings"
 )
 
 type Xinterface interface {
@@ -16,7 +16,7 @@ type Xinterface interface {
 }
 
 func main() {
-     	a1 := os.Args[1]
+	a1 := os.Args[1]
 	a1l := strings.ToLower(a1)
 	a1t := strings.Title(a1)
 	a2 := os.Args[2]
@@ -33,9 +33,16 @@ func main() {
 		fmt.Println(err)
 		return
 	}
-	strprg := fmt.Sprintf("package main\ntype %s string\nfunc(s %s) FUNCTION (x int, y int) int { %s}\nvar %s %s", a1l, a1l, a2, a1t, a1l)
+	strprg := fmt.Sprintf(`package main 
+import (
+	"fmt"
+)
+type %s string 
+func(s %s) FUNCTION (x int, y int) int { fmt.Println("")
+%s} 
+var %s %s`, a1l, a1l, a2, a1t, a1l)
 	fmt.Printf("func(s %s) FUNCTION (x int, y int) int { \n", a1l)
-	fmt.Printf("start of %s: x=%d, y=%d\n",a1l, x1 ,y1 )
+	fmt.Printf("start of %s: x=%d, y=%d\n", a1l, x1, y1)
 	l, err := f.WriteString(strprg)
 	if err != nil {
 		fmt.Println(err)
@@ -68,7 +75,7 @@ func main() {
 	fmt.Println("loading module")
 	// load module
 	// 1. open the so file to load the symbols
-	plug, err := plugin.Open(fmt.Sprintf("%s%s%s%s%s", "/tmp/", os.Args[1], "/", os.Args[1], ".so" ))
+	plug, err := plugin.Open(fmt.Sprintf("%s%s%s%s%s", "/tmp/", os.Args[1], "/", os.Args[1], ".so"))
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -92,7 +99,6 @@ func main() {
 	}
 
 	// 4. use the module
-
 
 	fmt.Println(myvar.FUNCTION(x1, y1))
 
