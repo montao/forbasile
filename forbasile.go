@@ -11,11 +11,14 @@ import (
 	"strings"
 )
 
+
+//TODO: Investigate how to relax the name FUNCTION into a variable
 type Xinterface interface {
 	FUNCTION(x int, y int) int
 }
 
 func main() {
+	//Declare good variable names and create the file for the code
 	funame := os.Args[1]
 	funamel := strings.ToLower(funame)
 	funamet := strings.Title(funame)
@@ -28,6 +31,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	//Here comes the program
 	strprg := fmt.Sprintf(`package main 
 import (
 	"fmt"
