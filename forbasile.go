@@ -18,7 +18,7 @@ func main() {
 	fubody := os.Args[2]
 	x1, err := strconv.Atoi(os.Args[3])
 	y1, err := strconv.Atoi(os.Args[4])
-	filename := fmt.Sprintf("/tmp/%s.go", funame)
+	filename := fmt.Sprintf("/tmp/code_%s.go", funame)
 	f, err := os.Create(filename)
 	if err != nil {
 		fmt.Println(err)
@@ -54,7 +54,7 @@ func %s(x int, y int) int { fmt.Println("")
 	exPath := filepath.Dir(ex)
 	fmt.Println(exPath)
 	fmt.Println("compiling plugin")
-	cmd := exec.Command("go", "build", "-buildmode=plugin", "-o", fmt.Sprintf("%s%s%s", "/tmp/", funame, ".so"), fmt.Sprintf("%s%s%s", "/tmp/", funame, ".go"))
+	cmd := exec.Command("go", "build", "-buildmode=plugin", "-o", fmt.Sprintf("%s%s%s", "/tmp/plugin_", funame, ".so"), fmt.Sprintf("%s%s%s", "/tmp/code_", funame, ".go"))
 
 	out, err2 := cmd.Output()
 	fmt.Println(out)
@@ -89,8 +89,8 @@ func %s(x int, y int) int { fmt.Println("")
 	output := plugFunc(x1, y1)
 	fmt.Println(output)
 
-	fmt.Println(fmt.Sprintf("Generated code: %s", fmt.Sprintf("/tmp/%s%s", funamet , ".go") ))
-	fmt.Println(fmt.Sprintf("Generated object file: %s", fmt.Sprintf("/tmp/%s%s", funamet , ".so") ))
+	fmt.Println(fmt.Sprintf("Generated code: %s", fmt.Sprintf("/tmp/code_%s%s", funamet , ".go") ))
+	fmt.Println(fmt.Sprintf("Generated object file: %s", fmt.Sprintf("/tmp/plugin_%s%s", funamet , ".so") ))
 
 	cmd2 := exec.Command("pmap", strconv.Itoa(os.Getpid()))
 	out2, err3 := cmd2.Output()
@@ -100,14 +100,5 @@ func %s(x int, y int) int { fmt.Println("")
 		fmt.Println(err3)
 		return
 	}
-
-/*	cmd3 := exec.Command("nm", fmt.Sprintf("/tmp/%s%s", funamet, ".so"))
-	out3, err4 := cmd3.Output()
-	fmt.Println(string(out3))
-
-	if err4 != nil {
-		fmt.Println(err4)
-		return
-	}*/
 
 }
