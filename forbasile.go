@@ -6,14 +6,11 @@ import (
 	"os/exec"
 	"path/filepath"
 	"plugin"
-	"reflect"
+	//"reflect"
 	"strconv"
 	"strings"
 )
 
-type Xinterface interface {
-	FUNCTION(x int, y int) int
-}
 
 func main() {
 	funame := os.Args[1]
@@ -32,10 +29,9 @@ func main() {
 import (
 	"fmt"
 )
-type %s string 
-func(s %s) FUNCTION (x int, y int) int { fmt.Println("")
+func %s(x int, y int) int { fmt.Println("")
 %s} 
-var %s %s`, funamel, funamel, fubody, funamet, funamel)
+`, funamet, fubody)
 	fmt.Printf("func(s %s) FUNCTION (x int, y int) int { \n", funamel)
 	fmt.Printf("start of %s: x=%d, y=%d\n", funamel, x1, y1)
 	l, err := f.WriteString(strprg)
@@ -86,16 +82,25 @@ var %s %s`, funamel, funamel, fubody, funamet, funamel)
 	fmt.Println("checking module")
 	// 3. Assert that loaded symbol is of a desired type
 	// in this case interface type X (defined above)
-	var myvar Xinterface
-	myvar, ok := symX.(Xinterface)
-	if !ok {
-		fmt.Println(fmt.Sprintf("unexpected type from module symbol %s", reflect.TypeOf(symX.(Xinterface))))
-		os.Exit(1)
-	}
+	//var myvar Xinterface
+	//myvar, ok := symX.(Xinterface)
+	//if !ok {
+	//	fmt.Println(fmt.Sprintf("unexpected type from module symbol %s", reflect.TypeOf(symX.(Xinterface))))
+	//	os.Exit(1)
+	//}
 
 	// 4. use the module
 
-	fmt.Println(myvar.FUNCTION(x1, y1))
+	//fmt.Println(symX.(func()))
+
+	plugFunc, ok := symX.(func(int, int) int)
+	if !ok {
+		panic("Plugin has no 'Sort([]int) []int' function")
+	}
+
+	output := plugFunc(x1, y1)
+	fmt.Println(output)
+
 	fmt.Println(fmt.Sprintf("Generated code: %s", fmt.Sprintf("/tmp/%s%s", funamet , ".go") ))
 	fmt.Println(fmt.Sprintf("Generated object file: %s", fmt.Sprintf("/tmp/%s%s", funamet , ".so") ))
 
