@@ -80,22 +80,10 @@ func %s(x int, y int) int { fmt.Println("")
 		os.Exit(1)
 	}
 	fmt.Println("checking module")
-	// 3. Assert that loaded symbol is of a desired type
-	// in this case interface type X (defined above)
-	//var myvar Xinterface
-	//myvar, ok := symX.(Xinterface)
-	//if !ok {
-	//	fmt.Println(fmt.Sprintf("unexpected type from module symbol %s", reflect.TypeOf(symX.(Xinterface))))
-	//	os.Exit(1)
-	//}
-
-	// 4. use the module
-
-	//fmt.Println(symX.(func()))
 
 	plugFunc, ok := symX.(func(int, int) int)
 	if !ok {
-		panic("Plugin has no 'Sort([]int) []int' function")
+		panic("Plugin has no such function")
 	}
 
 	output := plugFunc(x1, y1)
