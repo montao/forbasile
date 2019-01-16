@@ -92,4 +92,22 @@ func %s(x int, y int) int { fmt.Println("")
 	fmt.Println(fmt.Sprintf("Generated code: %s", fmt.Sprintf("/tmp/%s%s", funamet , ".go") ))
 	fmt.Println(fmt.Sprintf("Generated object file: %s", fmt.Sprintf("/tmp/%s%s", funamet , ".so") ))
 
+	cmd2 := exec.Command("pmap", strconv.Itoa(os.Getpid()))
+	out2, err3 := cmd2.Output()
+	fmt.Println(string(out2))
+
+	if err3 != nil {
+		fmt.Println(err3)
+		return
+	}
+
+	cmd3 := exec.Command("nm", fmt.Sprintf("/tmp/%s%s", funamet, ".so"))
+	out3, err4 := cmd3.Output()
+	fmt.Println(string(out3))
+
+	if err4 != nil {
+		fmt.Println(err4)
+		return
+	}
+
 }
