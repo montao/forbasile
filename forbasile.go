@@ -101,13 +101,13 @@ func %s(x int, y int) int { fmt.Println("")
 		return
 	}
 
-	cmd3 := exec.Command("nm", fmt.Sprintf("/tmp/%s%s", funamet, ".so"))
+/*	cmd3 := exec.Command("nm", fmt.Sprintf("/tmp/%s%s", funamet, ".so"))
 	out3, err4 := cmd3.Output()
 	fmt.Println(string(out3))
 
 	if err4 != nil {
 		fmt.Println(err4)
 		return
-	}
+	}*/
 
 }
