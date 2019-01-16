@@ -16,18 +16,18 @@ type Xinterface interface {
 }
 
 func main() {
-	a1 := os.Args[1]
-	a1l := strings.ToLower(a1)
-	a1t := strings.Title(a1)
-	a2 := os.Args[2]
+	funame := os.Args[1]
+	funamel := strings.ToLower(funame)
+	funamet := strings.Title(funame)
+	fubody := os.Args[2]
 	x1, err := strconv.Atoi(os.Args[3])
 	y1, err := strconv.Atoi(os.Args[4])
 
 	// module to load
 	//mod := fmt.Sprintf("%s%s%s%s%s", "./", arg, "/", arg, ".so")
 	//fmt.Printf(mod)
-	os.Mkdir("/tmp"+string(filepath.Separator)+os.Args[1], 0777)
-	filename := fmt.Sprintf("/tmp/%s/%s.go", os.Args[1], os.Args[1])
+	os.Mkdir("/tmp"+string(filepath.Separator)+funame, 0777)
+	filename := fmt.Sprintf("/tmp/%s/%s.go", funame, funame)
 	f, err := os.Create(filename)
 	if err != nil {
 		fmt.Println(err)
@@ -40,9 +40,9 @@ import (
 type %s string 
 func(s %s) FUNCTION (x int, y int) int { fmt.Println("")
 %s} 
-var %s %s`, a1l, a1l, a2, a1t, a1l)
-	fmt.Printf("func(s %s) FUNCTION (x int, y int) int { \n", a1l)
-	fmt.Printf("start of %s: x=%d, y=%d\n", a1l, x1, y1)
+var %s %s`, funamel, funamel, fubody, funamet, funamel)
+	fmt.Printf("func(s %s) FUNCTION (x int, y int) int { \n", funamel)
+	fmt.Printf("start of %s: x=%d, y=%d\n", funamel, x1, y1)
 	l, err := f.WriteString(strprg)
 	if err != nil {
 		fmt.Println(err)
@@ -63,7 +63,7 @@ var %s %s`, a1l, a1l, a2, a1t, a1l)
 	exPath := filepath.Dir(ex)
 	fmt.Println(exPath)
 	fmt.Println("compiling plugin")
-	cmd := exec.Command("go", "build", "-buildmode=plugin", "-o", fmt.Sprintf("%s%s%s%s%s", "/tmp/", os.Args[1], "/", os.Args[1], ".so"), fmt.Sprintf("%s%s%s%s%s", "/tmp/", os.Args[1], "/", os.Args[1], ".go"))
+	cmd := exec.Command("go", "build", "-buildmode=plugin", "-o", fmt.Sprintf("%s%s%s%s%s", "/tmp/", funame, "/", funame, ".so"), fmt.Sprintf("%s%s%s%s%s", "/tmp/", funame, "/", funame, ".go"))
 
 	out, err2 := cmd.Output()
 	fmt.Println(out)
@@ -75,15 +75,15 @@ var %s %s`, a1l, a1l, a2, a1t, a1l)
 	fmt.Println("loading module")
 	// load module
 	// 1. open the so file to load the symbols
-	plug, err := plugin.Open(fmt.Sprintf("%s%s%s%s%s", "/tmp/", os.Args[1], "/", os.Args[1], ".so"))
+	plug, err := plugin.Open(fmt.Sprintf("%s%s%s%s%s", "/tmp/", funame, "/", funame, ".so"))
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
 	}
 	fmt.Println("looking up symbol")
 	// 2. look up a symbol (an exported function or variable)
-	// in this case, variable os.Args[1]
-	symX, err := plug.Lookup(os.Args[1])
+	// in this case, variable funame
+	symX, err := plug.Lookup(funame)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
