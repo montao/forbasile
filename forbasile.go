@@ -6,13 +6,12 @@ import (
 	"os/exec"
 	"path/filepath"
 	"plugin"
-	//"reflect"
 	"strconv"
 	"strings"
 )
 
-
 func main() {
+	//Declare good variable names and create the file for the code
 	funame := os.Args[1]
 	funamel := strings.ToLower(funame)
 	funamet := strings.Title(funame)
@@ -25,6 +24,7 @@ func main() {
 		fmt.Println(err)
 		return
 	}
+	//Here comes the program
 	strprg := fmt.Sprintf(`package main 
 import (
 	"fmt"
