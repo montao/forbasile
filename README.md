@@ -1,5 +1,7 @@
 # Go Plugin
 
+Static analysis     | GoReport              | [![Go Report Card](https://goreportcard.com/badge/github.com/montao/go-many-plugins)](https://goreportcard.com/report/github.com/montao/go-many-plugins)
+
 The code in this repository uses the `plugin` package in Go 1.10 (see https://tip.golang.org/pkg/plugin/).  A Go plugin is package compiled with the `-buildmode=plugin` which creates a shared object (`.so`) library file instead of the standard archive (`.a`) library file.  As you will see here, using the standard library's `plugin` package, Go can dynamically load the shared object file at runtime to access exported elements such as functions and variables.
 
 You can read the related article [on Medium](https://medium.com/learning-the-go-programming-language/writing-modular-go-programs-with-plugins-ec46381ee1a9).
